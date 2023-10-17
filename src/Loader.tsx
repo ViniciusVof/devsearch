@@ -8,6 +8,7 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
   body {
     font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
   }
 `;
 export function Loader() {
