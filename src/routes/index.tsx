@@ -4,7 +4,7 @@ import * as Pages from 'pages';
 
 const routes = [
   { path: '/', element: <Pages.Home /> },
-  { path: '/about', element: <Pages.About /> },
+  { path: '/groups', element: <Pages.Groups /> },
 ];
 
 export function Router() {
