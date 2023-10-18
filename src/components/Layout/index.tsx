@@ -1,7 +1,7 @@
 import { SEO } from 'components/SEO';
 import { Sidebar } from 'components/Sidebar';
 import { ReactNode } from 'react';
-import { Wrapper } from './styles';
+import { Wrapper, Content } from './styles';
 
 interface LayoutProps {
   children?: ReactNode;
@@ -13,7 +13,7 @@ export function Layout({ children, titleSEO }: LayoutProps) {
     <Wrapper>
       <SEO title={titleSEO} />
       <Sidebar />
-      {children}
+      <Content>{children}</Content>
     </Wrapper>
   );
 }
