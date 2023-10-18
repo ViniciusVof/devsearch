@@ -11,7 +11,7 @@ export const Logo = styled.div`
 
 export const MenuList = styled.ul`
   width: 80px;
-  height: 100vh;
+  min-height: 100vh;
   background-color: ${props => props.theme.white};
   border-right: 1px solid ${props => props.theme.gray200};
   display: flex;

@@ -12,29 +12,54 @@ import {
   Title,
 } from './styles';
 
-export function Location() {
+interface LocationProps {
+  title: string;
+  price: number;
+  priceType: string;
+  address: string;
+  place: string;
+  participants: number;
+  capacity: number;
+  allowedTime: string;
+  imagePlace: string;
+}
+
+export function Location({
+  title,
+  price,
+  priceType,
+  address,
+  place,
+  participants,
+  capacity,
+  allowedTime,
+  imagePlace,
+}: LocationProps) {
   return (
     <Card>
       <PlaceInformations>
         <Informations>
-          <Title>Frontend</Title>
+          <Title>{title}</Title>
           <Price>
-            R$ 10<span>por dev</span>
+            R$ {price}
+            <span>{priceType}</span>
           </Price>
           <ItemInformation className="information">
-            Endereço: <span>Rua pedro bento da silva 891, centro</span>
+            Endereço: <span>{address}</span>
           </ItemInformation>
           <ItemInformation className="information">
-            Estabelecimento: <span>Jacaré vermelho</span>
+            Estabelecimento: <span>{place}</span>
           </ItemInformation>
         </Informations>
-        <CapacityInformation>3/8</CapacityInformation>
+        <CapacityInformation>
+          {participants}/{capacity}
+        </CapacityInformation>
       </PlaceInformations>
       <PlaceAllowed>
-        <ImagePlace src="https://patiobatel.com.br/wp-content/uploads/2022/02/img-4968-1024x682.jpg" />
+        <ImagePlace src={imagePlace} />
         <AllowedTime>
           <ItemInformation>
-            Horário Permitido: <span>Até as 12h</span>
+            Horário Permitido: <span>{allowedTime}</span>
           </ItemInformation>
           <SignIn size={32} weight="light" className="icon" />
         </AllowedTime>

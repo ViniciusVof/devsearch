@@ -8,6 +8,7 @@ export const Card = styled.div`
   box-shadow: 0px 2px 4px rgba(33, 36, 41, 0.05);
   width: 600px;
   padding: 0px 0px 16px 24px;
+  margin-bottom: 32px;
 `;
 
 export const Title = styled.p`

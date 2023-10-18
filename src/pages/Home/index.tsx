@@ -1,4 +1,5 @@
 import * as Components from 'components';
+import { groups } from 'config/mock';
 import { useState } from 'react';
 
 export function Home() {
@@ -22,12 +23,23 @@ export function Home() {
         tabsItems={['Acontecendo Agora', 'Nos próximos dias', 'Meus grupos']}
       ></Components.Header>
       <Components.TabPanel>
-        {selected === 0 && 'Acontecendo agora ihul'}
+        {selected === 0 &&
+          groups.map(group => (
+            <Components.Location
+              title={group.title}
+              price={group.price}
+              priceType={group.priceType}
+              address={group.address}
+              place={group.place}
+              participants={group.participants}
+              capacity={group.capacity}
+              allowedTime={group.allowedTime}
+              imagePlace={group.imagePlace}
+            />
+          ))}
         {selected === 1 && 'Prox ihul'}
         {selected === 2 && 'Meus agora ihul'}
       </Components.TabPanel>
-
-      <Components.Location />
     </Components.Layout>
   );
 }
