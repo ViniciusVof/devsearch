@@ -36,6 +36,7 @@ export const MenuItem = styled.li`
   align-items: center;
   border-radius: 0px 6px 6px 0px;
   transition: padding 500ms;
+  z-index: 1;
   cursor: pointer;
   &:hover {
     padding-right: 40px;

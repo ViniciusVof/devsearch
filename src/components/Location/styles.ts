@@ -1,36 +1,34 @@
 import styled from 'styled-components';
 
 export const Card = styled.div`
-  position: relative;
+  display: flex;
+  justify-content: space-between;
   background-color: ${props => props.theme.white};
   border-radius: 16px;
   box-shadow: 0px 2px 4px rgba(33, 36, 41, 0.05);
   width: 600px;
-  height: 200px;
-  padding: 16px 24px;
-  flex-direction: column;
+  padding: 0px 0px 16px 24px;
 `;
 
 export const Title = styled.p`
   font-size: 16px;
   font-weight: 400;
-  margin-bottom: 12px;
+  margin: 16px 16px 12px 0px;
 `;
 
 export const ImagePlace = styled.img`
-  position: absolute;
-  right: 0;
-  top: 0;
   height: 180px;
-  object-fit: contain;
+  object-fit: cover;
   border-radius: 0px 16px 0px 16px;
 `;
 
 export const Price = styled.div`
   display: inline;
+  width: max-content;
   position: relative;
   font-size: 24px;
   font-weight: 400;
+  margin-bottom: 12px;
   span {
     position: absolute;
     right: -37px;
@@ -40,17 +38,21 @@ export const Price = styled.div`
   }
 `;
 
+export const PlaceInformations = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
 export const Informations = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
-  gap: 10px;
 `;
 
 export const ItemInformation = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
+  padding: 8px 0px;
   color: ${props => props.theme.gray200};
   span {
     max-width: 300px;
@@ -62,6 +64,34 @@ export const ItemInformation = styled.div`
 export const CapacityInformation = styled.div`
   font-size: 24px;
   font-weight: 400;
-  position: absolute;
+`;
+
+export const PlaceAllowed = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   bottom: 16px;
+  right: 16px;
+  .allowedTime {
+    display: flex;
+    flex-direction: row;
+  }
+  .icon {
+    fill: ${props => props.theme.black};
+    cursor: pointer;
+    transition: all 500ms;
+    &:hover {
+      fill: ${props => props.theme.primary};
+    }
+  }
+`;
+
+export const AllowedTime = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 10px;
+  padding-right: 16px;
 `;
