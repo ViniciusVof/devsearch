@@ -26,6 +26,8 @@ export function Home() {
         {selected === 1 && 'Prox ihul'}
         {selected === 2 && 'Meus agora ihul'}
       </Components.TabPanel>
+
+      <Components.Location />
     </Components.Layout>
   );
 }
