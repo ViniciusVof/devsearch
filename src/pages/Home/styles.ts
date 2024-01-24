@@ -12,3 +12,28 @@ export const LocationList = styled.div`
   grid-template-columns: 1fr 1fr;
   gap: 24px;
 `;
+
+export const FloatingButton = styled.button`
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  background-color: ${props => props.theme.primary};
+  color: ${props => props.theme.white};
+  border: none;
+  border-radius: 50%;
+  padding: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: ${props => props.theme.primaryDark};
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+`;

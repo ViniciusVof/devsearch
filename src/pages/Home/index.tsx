@@ -1,18 +1,56 @@
 import * as Components from 'components';
-import { groups } from 'config/mock';
-import { useState } from 'react';
-import { LocationList } from './styles';
+import { useState, useEffect } from 'react';
+import { FloatingButton, LocationList } from './styles';
+import * as groupService from 'services/groupService';
+import { Plus } from '@phosphor-icons/react';
+import AddGroupForm from './AddGroupForm';
 
 export function Home() {
+  const [showAddGroupForm, setShowAddGroupForm] = useState(false);
+
   const [selected, setSelected] = useState(0);
-  const currentDate = new Date();
-  const daysToConsider = 7;
-  const weekendDay = 0;
-  const ownerIdToFilter = 1;
+  const [groups, setGroups] = useState([]);
+
+  const ownerIdToFilter = 'asdasdas';
 
   const onTabSelected = (index: any) => {
     setSelected(index);
   };
+
+  const fetchGroupsByTab = async () => {
+    try {
+      let response;
+
+      switch (selected) {
+        case 0:
+          response = await groupService.getGroupsToday();
+          break;
+        case 1:
+          response = await groupService.getGroupsThisWeek();
+          break;
+        case 2:
+          response = await groupService.getGroupsByOwnerId(
+            String(ownerIdToFilter)
+          );
+          break;
+        default:
+          response = await groupService.getAllGroups();
+          break;
+      }
+
+      setGroups(response.data);
+    } catch (error) {
+      console.error('Erro ao obter grupos:', error);
+    }
+  };
+
+  const handleAddButtonClick = () => {
+    setShowAddGroupForm(true); // Abra o formulário quando o botão for pressionado
+  };
+
+  useEffect(() => {
+    fetchGroupsByTab();
+  }, [selected]);
 
   return (
     <Components.Layout titleSEO="Home">
@@ -29,79 +67,22 @@ export function Home() {
         tabsItems={['Acontecendo agora', 'Nesta semana', 'Meus grupos']}
       />
       <Components.TabPanel>
-        <LocationList>
-          {selected === 0 &&
-            groups
-              .filter(event => {
-                const startDate = new Date(event.startDate);
-                const allowedTime = new Date(event.allowedTime);
-
-                return startDate <= currentDate && currentDate <= allowedTime;
-              })
-              .map(group => (
-                <Components.Location
-                  title={group.title}
-                  price={group.price}
-                  priceType={group.priceType}
-                  address={group.address}
-                  place={group.place}
-                  participants={group.participants}
-                  capacity={group.capacity}
-                  startDate={group.startDate}
-                  allowedTime={group.allowedTime}
-                  imagePlace={group.imagePlace}
-                />
+        {showAddGroupForm ? (
+          <AddGroupForm onClose={() => setShowAddGroupForm(false)} />
+        ) : (
+          <LocationList>
+            {Array.isArray(groups) &&
+              groups.map((group: any) => (
+                <Components.Location key={group.id} {...group} />
               ))}
-          {selected === 1 &&
-            groups
-              .filter(event => {
-                const startDate = new Date(event.startDate);
-
-                // Verifica se o evento ocorre nos próximos dias desta semana
-                const isUpcomingThisWeek =
-                  startDate >= currentDate &&
-                  startDate <=
-                    new Date(
-                      currentDate.getTime() +
-                        daysToConsider * 24 * 60 * 60 * 1000
-                    ) &&
-                  startDate.getDay() !== weekendDay;
-
-                return isUpcomingThisWeek;
-              })
-              .map(group => (
-                <Components.Location
-                  title={group.title}
-                  price={group.price}
-                  priceType={group.priceType}
-                  address={group.address}
-                  place={group.place}
-                  participants={group.participants}
-                  capacity={group.capacity}
-                  startDate={group.startDate}
-                  allowedTime={group.allowedTime}
-                  imagePlace={group.imagePlace}
-                />
-              ))}
-          {selected === 2 &&
-            groups
-              .filter(event => event.ownerId === ownerIdToFilter)
-              .map(group => (
-                <Components.Location
-                  title={group.title}
-                  price={group.price}
-                  priceType={group.priceType}
-                  address={group.address}
-                  place={group.place}
-                  participants={group.participants}
-                  capacity={group.capacity}
-                  startDate={group.startDate}
-                  allowedTime={group.allowedTime}
-                  imagePlace={group.imagePlace}
-                />
-              ))}
-        </LocationList>
+          </LocationList>
+        )}
       </Components.TabPanel>
+      {!showAddGroupForm && (
+        <FloatingButton onClick={handleAddButtonClick}>
+          <Plus />
+        </FloatingButton>
+      )}
     </Components.Layout>
   );
 }
