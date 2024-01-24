@@ -6,7 +6,6 @@ export const Card = styled.div`
   background-color: ${props => props.theme.white};
   border-radius: 16px;
   box-shadow: 0px 2px 4px rgba(33, 36, 41, 0.05);
-  width: 600px;
   padding: 0px 0px 16px 24px;
   margin-bottom: 32px;
 `;
@@ -18,7 +17,8 @@ export const Title = styled.p`
 `;
 
 export const ImagePlace = styled.img`
-  height: 180px;
+  width: 280px;
+  height: 250px;
   object-fit: cover;
   border-radius: 0px 16px 0px 16px;
 `;

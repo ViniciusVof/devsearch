@@ -11,6 +11,7 @@ import {
   Price,
   Title,
 } from './styles';
+import dayjs from 'dayjs';
 
 interface LocationProps {
   title: string;
@@ -20,8 +21,9 @@ interface LocationProps {
   place: string;
   participants: number;
   capacity: number;
-  allowedTime: string;
   imagePlace: string;
+  startDate: string;
+  allowedTime: string;
 }
 
 export function Location({
@@ -32,9 +34,15 @@ export function Location({
   place,
   participants,
   capacity,
-  allowedTime,
   imagePlace,
+  startDate,
+  allowedTime,
 }: LocationProps) {
+  const priceTypeLabel: { [key: string]: string } = {
+    group: 'grupo',
+    dev: 'dev',
+  };
+
   return (
     <Card>
       <PlaceInformations>
@@ -42,13 +50,22 @@ export function Location({
           <Title>{title}</Title>
           <Price>
             R$ {price}
-            <span>{priceType}</span>
+            <span>{priceTypeLabel[priceType]}</span>
           </Price>
           <ItemInformation className="information">
             Endereço: <span>{address}</span>
           </ItemInformation>
           <ItemInformation className="information">
             Estabelecimento: <span>{place}</span>
+          </ItemInformation>
+
+          <ItemInformation className="information">
+            Início:{' '}
+            <span>
+              {dayjs(new Date(startDate).toString()).format(
+                'DD/MM/YYYY [-] HH:mm[hrs]'
+              )}
+            </span>
           </ItemInformation>
         </Informations>
         <CapacityInformation>
@@ -59,7 +76,8 @@ export function Location({
         <ImagePlace src={imagePlace} />
         <AllowedTime>
           <ItemInformation>
-            Horário Permitido: <span>{allowedTime}</span>
+            Horário Permitido:{' '}
+            <span>Até {dayjs(allowedTime).format('HH:mm[hrs]')}</span>
           </ItemInformation>
           <SignIn size={32} weight="light" className="icon" />
         </AllowedTime>
