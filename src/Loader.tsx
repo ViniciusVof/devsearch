@@ -6,9 +6,14 @@ import reset from 'styled-reset';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
+  *{
+    box-sizing: border-box;
+  }
   body {
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
+    font-size: 16px;
+    color: ${props => props.theme.black}
   }
 `;
 export function Loader() {

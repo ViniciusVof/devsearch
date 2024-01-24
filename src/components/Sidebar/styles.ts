@@ -11,7 +11,7 @@ export const Logo = styled.div`
 
 export const MenuList = styled.ul`
   width: 80px;
-  height: 100vh;
+  min-height: 100vh;
   background-color: ${props => props.theme.white};
   border-right: 1px solid ${props => props.theme.gray200};
   display: flex;
@@ -36,6 +36,7 @@ export const MenuItem = styled.li`
   align-items: center;
   border-radius: 0px 6px 6px 0px;
   transition: padding 500ms;
+  z-index: 1;
   cursor: pointer;
   &:hover {
     padding-right: 40px;

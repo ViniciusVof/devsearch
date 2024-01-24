@@ -6,9 +6,9 @@ export const sidebarMenu = [
     label: 'Home',
     route: '/',
   },
-  {
-    icon: 'UsersThree',
-    label: 'Grupos',
-    route: '/groups',
-  },
+  // {
+  //   icon: 'User',
+  //   label: 'Perfil',
+  //   route: '/perfil',
+  // },
 ];
