@@ -1,17 +1,23 @@
-// src/context/UserContext.tsx
-import { createContext, useState, useContext, ReactNode } from 'react';
+import {
+  createContext,
+  useState,
+  useContext,
+  useEffect,
+  ReactNode,
+} from 'react';
 
 interface User {
   id: string;
   fullName: string;
   email: string;
-  // Adicione outras propriedades conforme necessário
+  profileImage: string | null;
 }
 
 interface UserContextType {
   user: User | null;
   updateUser: (userData: User | null) => void;
   isLoggedIn: () => boolean;
+  logout: () => void;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -29,18 +35,36 @@ interface UserProviderProps {
 }
 
 export const UserProvider = ({ children }: UserProviderProps) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>(() => {
+    const storedUser = localStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
 
   const updateUser = (userData: User | null) => {
     setUser(userData);
+    if (userData) {
+      localStorage.setItem('user', JSON.stringify(userData));
+    } else {
+      localStorage.removeItem('user');
+    }
   };
 
   const isLoggedIn = () => {
     return user !== null;
   };
 
+  const logout = () => {
+    updateUser(null); // Define o estado do usuário como nulo
+  };
+
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem('user');
+    };
+  }, []);
+
   return (
-    <UserContext.Provider value={{ user, updateUser, isLoggedIn }}>
+    <UserContext.Provider value={{ user, updateUser, isLoggedIn, logout }}>
       {children}
     </UserContext.Provider>
   );

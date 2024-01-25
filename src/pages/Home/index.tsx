@@ -5,8 +5,11 @@ import * as groupService from 'services/groupService';
 import { Plus } from '@phosphor-icons/react';
 import AddGroupForm from './AddGroupForm';
 import Modal from 'components/Modal';
+import { useUser } from 'contexts/UserContext';
+import noPhoto from 'assets/images/noPhoto.png';
 
 export function Home() {
+  const { user, isLoggedIn } = useUser();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [selected, setSelected] = useState(0);
@@ -59,18 +62,20 @@ export function Home() {
 
   return (
     <Components.Layout titleSEO="Home">
-      <Components.Header
-        showProfileStatics={true}
-        user={{
-          name: 'Vinicius Oliveira de Freitas',
-          participations: 10,
-          createdGroups: 2,
-          image: 'https://avatars.githubusercontent.com/u/8822046?v=4',
-        }}
-        showTabs={true}
-        onTabSelected={onTabSelected}
-        tabsItems={['Acontecendo agora', 'Nesta semana', 'Meus grupos']}
-      />
+      {isLoggedIn() && user && (
+        <Components.Header
+          showProfileStatics={true}
+          user={{
+            name: user.fullName,
+            participations: 10,
+            createdGroups: 2,
+            image: user.profileImage ?? noPhoto,
+          }}
+          showTabs={true}
+          onTabSelected={onTabSelected}
+          tabsItems={['Acontecendo agora', 'Nesta semana', 'Meus grupos']}
+        />
+      )}
       {!isModalOpen && (
         <Components.TabPanel>
           <LocationList>
