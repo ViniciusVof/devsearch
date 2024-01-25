@@ -1,4 +1,6 @@
 import { theme } from 'config/globals/theme';
+import { ToastProvider } from 'contexts/ToastContext';
+import { UserProvider } from 'contexts/UserContext';
 import { HelmetProvider } from 'react-helmet-async';
 import { Router } from 'routes';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
@@ -21,7 +23,11 @@ export function Loader() {
     <ThemeProvider theme={theme}>
       <HelmetProvider>
         <GlobalStyle />
-        <Router />
+        <ToastProvider>
+          <UserProvider>
+            <Router />
+          </UserProvider>
+        </ToastProvider>
       </HelmetProvider>
     </ThemeProvider>
   );

@@ -4,9 +4,10 @@ import { FloatingButton, LocationList } from './styles';
 import * as groupService from 'services/groupService';
 import { Plus } from '@phosphor-icons/react';
 import AddGroupForm from './AddGroupForm';
+import Modal from 'components/Modal';
 
 export function Home() {
-  const [showAddGroupForm, setShowAddGroupForm] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [selected, setSelected] = useState(0);
   const [groups, setGroups] = useState([]);
@@ -44,8 +45,12 @@ export function Home() {
     }
   };
 
-  const handleAddButtonClick = () => {
-    setShowAddGroupForm(true); // Abra o formulário quando o botão for pressionado
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
   };
 
   useEffect(() => {
@@ -66,23 +71,26 @@ export function Home() {
         onTabSelected={onTabSelected}
         tabsItems={['Acontecendo agora', 'Nesta semana', 'Meus grupos']}
       />
-      <Components.TabPanel>
-        {showAddGroupForm ? (
-          <AddGroupForm onClose={() => setShowAddGroupForm(false)} />
-        ) : (
+      {!isModalOpen && (
+        <Components.TabPanel>
           <LocationList>
             {Array.isArray(groups) &&
               groups.map((group: any) => (
                 <Components.Location key={group.id} {...group} />
               ))}
           </LocationList>
-        )}
-      </Components.TabPanel>
-      {!showAddGroupForm && (
-        <FloatingButton onClick={handleAddButtonClick}>
-          <Plus />
-        </FloatingButton>
+          <FloatingButton onClick={handleModalOpen}>
+            <Plus />
+          </FloatingButton>
+        </Components.TabPanel>
       )}
+      <Modal
+        open={isModalOpen}
+        onClose={handleModalClose}
+        title="Adicionar Novo Grupo"
+      >
+        <AddGroupForm onClose={handleModalClose} />
+      </Modal>
     </Components.Layout>
   );
 }

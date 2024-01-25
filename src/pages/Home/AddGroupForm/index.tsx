@@ -18,7 +18,6 @@ interface FormData {
   price: number;
   address: string;
   place: string;
-  participants: number;
   capacity: number;
   startDate: string;
   allowedTime: string;
@@ -32,7 +31,6 @@ const AddGroupForm: React.FC<AddGroupFormProps> = ({ onClose }) => {
     price: 0,
     address: '',
     place: '',
-    participants: 0,
     capacity: 0,
     startDate: '',
     allowedTime: '',
@@ -69,6 +67,30 @@ const AddGroupForm: React.FC<AddGroupFormProps> = ({ onClose }) => {
     <form onSubmit={handleSubmit}>
       <GridContainer>
         <label>
+          Imagem do Local:
+          <ImageContainer>
+            {formData.imageFile ? (
+              <img
+                src={URL.createObjectURL(formData.imageFile)}
+                alt="Imagem do Local"
+              />
+            ) : (
+              <>
+                <UploadIcon>
+                  <Upload />
+                </UploadIcon>
+                <p>Arraste e solte a imagem ou clique para selecionar.</p>
+              </>
+            )}
+            <Input
+              type="file"
+              name="imageFile"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
+          </ImageContainer>
+        </label>
+        <label>
           Título:
           <Input
             type="text"
@@ -104,15 +126,7 @@ const AddGroupForm: React.FC<AddGroupFormProps> = ({ onClose }) => {
             onChange={handleChange}
           />
         </label>
-        <label>
-          Participantes:
-          <Input
-            type="number"
-            name="participants"
-            value={formData.participants}
-            onChange={handleChange}
-          />
-        </label>
+
         <label>
           Capacidade:
           <Input
@@ -139,30 +153,6 @@ const AddGroupForm: React.FC<AddGroupFormProps> = ({ onClose }) => {
             value={formData.allowedTime}
             onChange={handleChange}
           />
-        </label>
-        <label>
-          Imagem do Local:
-          <ImageContainer>
-            {formData.imageFile ? (
-              <img
-                src={URL.createObjectURL(formData.imageFile)}
-                alt="Imagem do Local"
-              />
-            ) : (
-              <>
-                <UploadIcon>
-                  <Upload />
-                </UploadIcon>
-                <p>Arraste e solte a imagem ou clique para selecionar.</p>
-              </>
-            )}
-            <Input
-              type="file"
-              name="imageFile"
-              accept="image/*"
-              onChange={handleImageChange}
-            />
-          </ImageContainer>
         </label>
       </GridContainer>
       <ButtonContainer>

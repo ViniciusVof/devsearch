@@ -9,7 +9,6 @@ export const ButtonContainer = styled.div`
 
 export const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   grid-gap: 16px;
   max-width: 100%;
   margin: 0 auto;
@@ -17,10 +16,10 @@ export const GridContainer = styled.div`
 
 export const ImageContainer = styled.div`
   margin-top: 8px;
-  padding: 16px;
-  border: 1px dashed #bdbdbd;
+  padding: 40px 16px;
+  border: 1px dashed ${props => props.theme.gray200};
   border-radius: 8px;
-  background-color: #f5f5f5;
+  background-color: ${props => props.theme.gray100};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -35,7 +34,7 @@ export const ImageContainer = styled.div`
 
   p {
     text-align: center;
-    color: #757575;
+    color: ${props => props.theme.gray300};
   }
 
   input {
@@ -45,5 +44,5 @@ export const ImageContainer = styled.div`
 
 export const UploadIcon = styled.div`
   font-size: 36px;
-  color: #bdbdbd;
+  color: ${props => props.theme.gray300};
 `;

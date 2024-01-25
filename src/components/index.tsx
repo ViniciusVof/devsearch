@@ -5,3 +5,5 @@ export { Header } from './Header';
 export { Avatar } from './Avatar';
 export { ProfileStatics } from './ProfileStatics';
 export { Location } from './Location';
+export { LoginForm } from './LoginForm';
+export { SignupForm } from './SignupForm';
